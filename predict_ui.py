@@ -37,7 +37,7 @@ event_dict = {
     'Dussehra': 3, 'Kumbh Mela': 3, 'Sankranti': 2
 }
 
-class DataPreprocessor(BaseEstimator, TransformerMixin):
+class DataPreprocessor():
     def __init__(self, store_location_dict, product_name_dict, event_dict):
         self.store_location_dict = store_location_dict
         self.product_name_dict = product_name_dict
@@ -65,7 +65,7 @@ class DataPreprocessor(BaseEstimator, TransformerMixin):
 
 
 def load_data():
-    df = pd.read_csv('wallmart_data.csv')
+    df = pd.read_csv('/content/Wallmart-Hackathon-Demand-Forecasting/wallmart_data.csv')
     X = df.drop(columns=['Sales in Week (Target)'])
     y = df['Sales in Week (Target)']
     return X, y
@@ -74,7 +74,8 @@ def train_model(X, y):
     # Add SimpleImputer to handle NaN values
     preprocessor = Pipeline(steps=[
         ('data_preprocessor', DataPreprocessor(store_location_dict, product_name_dict, event_dict)),
-        ('imputer', SimpleImputer(strategy='mean'))  # Replace NaNs with the mean of the column
+        ('imputer', SimpleImputer(strategy='mean')),  # Replace NaNs with the mean of the column
+        ('scaler', StandardScaler())
     ])
 
     model = GradientBoostingRegressor()
@@ -87,7 +88,7 @@ def train_model(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     pipeline.fit(X_train, y_train)
 
-    with open('model_pipeline.pkl', 'wb') as file:
+    with open('/content/Wallmart-Hackathon-Demand-Forecasting/model_pipeline.pkl', 'wb') as file:
         pickle.dump(pipeline, file)
 
 def predict():
@@ -127,7 +128,7 @@ def predict():
         df = pd.DataFrame([data_list], columns=columns)
 
         # Load the trained model
-        with open('model_pipeline.pkl', 'rb') as file:
+        with open('/content/Wallmart-Hackathon-Demand-Forecasting/model_pipeline.pkl', 'rb') as file:
             model = pickle.load(file)
 
         predicted_sales = model.predict(df)

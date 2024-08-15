@@ -21,13 +21,19 @@ def model_performance():
         st.write("Model Accuracy: 76.23%")
 
         # Load and display the associated image
-        image = Image.open("/content/Wallmart-Hackathon-Demand-Forecasting/linear_regression.png")
+        image = Image.open("linear_regression.png")
         st.image(image, caption="Predicted vs Observed Sales for Linear Regression")
 
     elif model_option == "Random Forest":
-        st.write("Mean Absolute Error: 1.87")
-        st.write("R-squared: 0.85")
-        # Optionally, add more data or visuals here
+        st.write("Mean Absolute Error: 55.14")
+        st.write("Mean Squared Error: 4597.37")
+        st.write("Root Mean Squared Error: 67.80")
+        st.write("R-squared: 0.98")
+
+        # Load and display the associated image
+        image = Image.open("random_forest.png")
+        st.image(image, caption="Predicted vs Observed Sales for Random Forest Regressor")
+
 
     elif model_option == "Gradient Boosting Regressor":
         st.write("Mean Absolute Error: 53.89")
@@ -37,13 +43,18 @@ def model_performance():
         st.write("Model Accuracy: 97.17%")
 
         # Load and display the associated image
-        image = Image.open("/content/Wallmart-Hackathon-Demand-Forecasting/gradient_boosting.png")
+        image = Image.open("gradient_boosting.png")
         st.image(image, caption="Predicted vs Observed Sales for Gradient Boosting Regressor")
 
     elif model_option == "Neural Network":
-        st.write("Mean Absolute Error: 1.50")
-        st.write("R-squared: 0.90")
-        # Optionally, add more data or visuals here
+        st.write("Mean Absolute Error: 56.96")
+        st.write("Mean Squared Error: 4607.89")
+        st.write("Root Mean Squared Error: 67.88")
+        st.write("R-squared: 0.98")
+        
+        # Load and display the associated image
+        image = Image.open("neural_network_ann.png")
+        st.image(image, caption="Predicted vs Observed Sales for Neural Network")
 
 # Run the Streamlit app
 if __name__ == "__main__":
